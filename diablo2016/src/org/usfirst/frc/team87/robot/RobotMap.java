@@ -9,9 +9,19 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * floating around.
  */
 public class RobotMap {
-	final int PLACEHOLDER = 0;
-
+	static final int PLACEHOLDER = 0;
+	static final int GAMEPAD = PLACEHOLDER;
+	static final int EXTREME3D = PLACEHOLDER;
 	
-	RobotDrive robotdrive = new RobotDrive(PLACEHOLDER, PLACEHOLDER, PLACEHOLDER, PLACEHOLDER);
+	static final int LEFT_THUMBSTICK = PLACEHOLDER;
+	static final int RIGHT_THUMBSTICK = PLACEHOLDER;
+	
+	public static RobotDrive robotdrive;
+	
+	public RobotMap(){
+		
+		robotdrive = new RobotDrive(PLACEHOLDER, PLACEHOLDER, PLACEHOLDER, PLACEHOLDER);
+		
+	}
 	
 }
