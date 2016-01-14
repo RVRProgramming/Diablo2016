@@ -12,7 +12,7 @@ public class OI {
 	final int PLACEHOLDER = 0;
 
 	static Joystick gamePad;
-	static Joystick extreme3D;
+	static Joystick joystick;
 	
 	/**
 	 * Initializes the OI class and sets the controllers
@@ -20,7 +20,7 @@ public class OI {
 	public OI(){
 		
 		gamePad = new Joystick(RobotMap.GAMEPAD);
-		extreme3D = new Joystick(RobotMap.EXTREME3D);
+		joystick = new Joystick(RobotMap.EXTREME3D);
 		
 	}
 	
