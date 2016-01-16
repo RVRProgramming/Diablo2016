@@ -118,6 +118,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
     	oi.drive();
+    	oi.throwTheBallReallyFar();
     	
         Scheduler.getInstance().run();
     }

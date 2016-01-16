@@ -1,6 +1,7 @@
 package org.usfirst.frc.team87.robot;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -15,13 +16,12 @@ public class RobotMap {
 	
 	static final int LEFT_THUMBSTICK = PLACEHOLDER;
 	static final int RIGHT_THUMBSTICK = PLACEHOLDER;
+	static final int LEFT_PISTON = PLACEHOLDER;
+	static final int RIGHT_PISTON = PLACEHOLDER;
+	static final int TRIGGER = PLACEHOLDER;
 	
-	public static RobotDrive robotdrive;
-	
-	public RobotMap(){
-		
-		robotdrive = new RobotDrive(PLACEHOLDER, PLACEHOLDER, PLACEHOLDER, PLACEHOLDER);
-		
-	}
+	public static RobotDrive robotdrive = new RobotDrive(PLACEHOLDER, PLACEHOLDER, PLACEHOLDER, PLACEHOLDER);
+	public static Solenoid leftPiston = new Solenoid(LEFT_PISTON);
+	public static Solenoid rightPiston = new Solenoid(RIGHT_PISTON);
 	
 }

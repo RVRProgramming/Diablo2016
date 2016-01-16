@@ -28,12 +28,24 @@ public class OI {
 	/** Gets the values of the thumb sticks on the controller
 	 * and drives the robot using tank drive
 	 */
-	public static void drive(){
+	public void drive(){
 		double leftDrive = gamePad.getRawAxis(RobotMap.LEFT_THUMBSTICK);
 		double rightDrive = gamePad.getRawAxis(RobotMap.RIGHT_THUMBSTICK);
 		
 		RobotMap.robotdrive.tankDrive(leftDrive, rightDrive);
+		}
+	
+	public void throwTheBallReallyFar(){
+		
+		if(joystick.getRawButton(RobotMap.TRIGGER)){
+			RobotMap.leftPiston.set(true);
+			RobotMap.rightPiston.set(true);
+		} else {
+			RobotMap.leftPiston.set(false);
+			RobotMap.rightPiston.set(false);
+		}
 		
 	}
+	
 }
 
