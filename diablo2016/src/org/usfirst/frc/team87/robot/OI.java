@@ -12,7 +12,7 @@ public class OI {
 	final int PLACEHOLDER = 0;
 
 	static Joystick gamePad;
-	static Joystick joystick;
+	static Joystick joyStick;
 	
 	/**
 	 * Initializes the OI class and sets the controllers
@@ -20,12 +20,13 @@ public class OI {
 	public OI(){
 		
 		gamePad = new Joystick(RobotMap.GAMEPAD);
-		joystick = new Joystick(RobotMap.EXTREME3D);
+		joyStick = new Joystick(RobotMap.EXTREME3D);
 		
 	}
 	
 	
-	/** Gets the values of the thumb sticks on the controller
+	/** 
+	 * Gets the values of the thumb sticks on the controller
 	 * and drives the robot using tank drive
 	 */
 	public void drive(){
@@ -35,9 +36,12 @@ public class OI {
 		RobotMap.robotdrive.tankDrive(leftDrive, rightDrive);
 		}
 	
+	/**
+	 * Throws the ball really far 
+	 */
 	public void throwTheBallReallyFar(){
 		
-		if(joystick.getRawButton(RobotMap.TRIGGER)){
+		if(gamePad.getRawButton(RobotMap.A_BUTTON)){
 			RobotMap.leftPiston.set(true);
 			RobotMap.rightPiston.set(true);
 		} else {

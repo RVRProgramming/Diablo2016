@@ -14,11 +14,17 @@ public class RobotMap {
 	static final int GAMEPAD = PLACEHOLDER;
 	static final int EXTREME3D = PLACEHOLDER;
 	
+	//Map for buttons on joystick
+	static final int TRIGGER = PLACEHOLDER;
+	
+	//Map for buttons on gamepad
 	static final int LEFT_THUMBSTICK = PLACEHOLDER;
 	static final int RIGHT_THUMBSTICK = PLACEHOLDER;
+	static final int A_BUTTON = PLACEHOLDER;
+	
 	static final int LEFT_PISTON = PLACEHOLDER;
 	static final int RIGHT_PISTON = PLACEHOLDER;
-	static final int TRIGGER = PLACEHOLDER;
+	
 	
 	public static RobotDrive robotdrive = new RobotDrive(PLACEHOLDER, PLACEHOLDER, PLACEHOLDER, PLACEHOLDER);
 	public static Solenoid leftPiston = new Solenoid(LEFT_PISTON);
