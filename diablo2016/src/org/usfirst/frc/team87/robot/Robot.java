@@ -2,12 +2,18 @@
 
 package org.usfirst.frc.team87.robot;
 
+import edu.wpi.first.wpilibj.AnalogAccelerometer;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.usfirst.frc.team87.robot.commands.ExampleCommand;
 import org.usfirst.frc.team87.robot.subsystems.ExampleSubsystem;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,11 +28,11 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-
+	public static Timer timer;
+	
+	
     Command autonomousCommand;
     SendableChooser chooser;
-
-    
     
     
     /**
@@ -39,6 +45,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+      
     }
 	
     
@@ -56,6 +63,8 @@ public class Robot extends IterativeRobot {
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putString("DB/String 2", Integer.toString(oi.autoMode()));
 	}
 
 	
@@ -73,18 +82,12 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
-    	// schedule the autonomous command (example)
+		if(timer == null){
+			timer = new Timer();
+			timer.reset();
+			timer.start();
+		}
+        
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -96,6 +99,9 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        
+        
     }
 
     
@@ -116,11 +122,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	Scheduler.getInstance().run();
     	
     	oi.drive();
-    	oi.throwTheBallReallyFar();
-    	
-        Scheduler.getInstance().run();
+    	oi.spinUp();
+    	oi.launch();
+    	SmartDashboard.putString("DB/String 0", oi.launchPower());
+        SmartDashboard.putString("DB/String 1", oi.getAccelerationString());
+        SmartDashboard.putString("DB/String 2", Integer.toString(oi.autoMode()));
+        //SmartDashboard.putString("DB/String 2", oi.getXVelocityString());
     }
     
     
@@ -131,5 +141,6 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+           
     }
 }
