@@ -1,21 +1,16 @@
-
-
 package org.usfirst.frc.team87.robot;
 
-import edu.wpi.first.wpilibj.AnalogAccelerometer;
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team87.robot.commands.ExampleCommand;
 import org.usfirst.frc.team87.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,14 +20,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static Timer timer;
+	int power = 100;
 	
-	
-    Command autonomousCommand;
-    SendableChooser chooser;
+    SendableChooser startLocationChooser;
+    SendableChooser barrierSelector;
+    //SendableChooser startLocationChooser;
+    //SendableChooser endLocationChooser;
+    //SendableChooser barrierChooser;
+    //AutonomousStepOne auto1;
     
     
     /**
@@ -41,14 +40,23 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-		chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
-      
+
+		this.startLocationChooser = new SendableChooser();
+		this.startLocationChooser.addDefault("Position 1", 1);
+		this.startLocationChooser.addObject("Position 2", 2);
+		this.startLocationChooser.addObject("Position 3", 3);
+		this.startLocationChooser.addObject("Position 4", 4);
+		SmartDashboard.putData("Autonomous Start Location", this.startLocationChooser);
+		
+		this.barrierSelector = new SendableChooser();
+		this.barrierSelector.addDefault("Barrier 1", 1);
+		this.barrierSelector.addObject("Barrier 2", 2);
+		this.barrierSelector.addObject("Barrier 3", 3);
+		this.barrierSelector.addObject("Barrier 4", 4);
+		this.barrierSelector.addObject("Barrier 5", 5);
+		SmartDashboard.putData("Autonomous Barrier Selection", this.barrierSelector);		
     }
-	
-    
+  
     
 	/**
      * This function is called once each time the robot enters Disabled mode.
@@ -58,13 +66,22 @@ public class Robot extends IterativeRobot {
     public void disabledInit(){
 
     }
-	
+	/**
+	 * This function is called periodically while the robot is in Disabled mode
+	 */
     
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		SmartDashboard.putString("DB/String 2", Integer.toString(oi.autoMode()));
+		if(oi.getLaunchPower() != 0){
+    		this.power = oi.getLaunchPower();
+    	}
+		
+		SmartDashboard.putString("Launch Power", Integer.toString(this.power));
+        SmartDashboard.putString("Acceleration", oi.getAccelerationString());
+        SmartDashboard.putString("Ultrasonic Sensor", Double.toString(oi.getDistanceInches()));
+
 	}
 
 	
@@ -79,40 +96,74 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
-    public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-        
-		if(timer == null){
-			timer = new Timer();
-			timer.reset();
-			timer.start();
-		}
-        
-        if (autonomousCommand != null) autonomousCommand.start();
-    }
 
-    
+	public void autonomousInit() {
+		
+	}
+	
     
     
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-        
-        
-        
+    //    Scheduler.getInstance().run();
+    	//Debugging Information
+    	SmartDashboard.putNumber("Start Location", (int) this.startLocationChooser.getSelected());
+    	SmartDashboard.putNumber("Barrier Selection", (int) this.barrierSelector.getSelected());
+    
+    	//Modular autonomous system
+    	int startLocation = (int) this.startLocationChooser.getSelected();
+		int barrierSelection = (int) this.barrierSelector.getSelected();
+		//Begin Starting Location Modularity
+			if(startLocation == 1){
+				//Do stuff for location 1
+			}
+			else if(startLocation == 2){
+				//Do stuff for location 2
+			}	
+			else if(startLocation == 3){
+				//Do stuff for location 3
+			}	
+			else if(startLocation == 4){
+				//Do stuff for location 4
+			}
+			else{
+				//Oops
+			}
+		//End Starting Location Modularity
+			
+		//Begin Barrier Selection Modularity
+			if(barrierSelection == 1){
+				//Do stuff for barrier 1
+			}	
+			else if(barrierSelection == 2){
+				//Do stuff for barrier 2
+			}	
+			else if(barrierSelection == 3){
+				//Do stuff for barrier 3
+			}	
+			else if(barrierSelection == 4){
+				//Do stuff for barrier 4
+			}
+			else if(barrierSelection == 5){
+				//Do stuff for barrier 5
+			}
+			else{
+				//Oops
+			}		
+			//End Barrier Selection Modularity    
     }
 
     
     
     
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+	// This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to 
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+        //if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     
@@ -121,16 +172,29 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+    
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
     	
     	oi.drive();
-    	oi.spinUp();
-    	oi.launch();
-    	SmartDashboard.putString("DB/String 0", oi.launchPower());
-        SmartDashboard.putString("DB/String 1", oi.getAccelerationString());
-        SmartDashboard.putString("DB/String 2", Integer.toString(oi.autoMode()));
-        //SmartDashboard.putString("DB/String 2", oi.getXVelocityString());
+    	
+    	//Only changes the power of the launch wheel if a joystick button is being pressed
+    	if(oi.getLaunchPower() != 0){
+    		this.power = oi.getLaunchPower();  //power is defined at the beginning of the class
+    	}
+    	
+    	
+    	
+    	oi.spinUp(this.power);
+    	oi.intake();
+    	oi.roller();
+    	SmartDashboard.putString("Launch Power", Integer.toString(this.power));
+        SmartDashboard.putString("Acceleration", oi.getAccelerationString());
+        SmartDashboard.putString("Ultrasonic Sensor", Double.toString(oi.getDistanceInches()));
+        SmartDashboard.putString("Launch Speed", Double.toString(oi.getSpinSpeed()));
+        
+       // SmartDashboard.putData("test", new TEST());
+        //SmartDashboard.putString("Auto Mode", Integer.toString(oi.autoMode()));
     }
     
     

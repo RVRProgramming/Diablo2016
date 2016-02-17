@@ -13,10 +13,20 @@ public class RobotMap {
 	static final int PLACEHOLDER = 0;
 	static final int GAMEPAD = 0;
 	static final int EXTREME3D = 1;
-	
-	//Map for buttons on joystick
+	//Map for buttons and axiseseses on joystick
 	static final int TRIGGER = 1;
 	static final int THUMB_BUTTON = 2;
+	static final int JOY_3 = 3;
+	static final int JOY_4 = 4;
+	static final int JOY_5 = 5;
+	static final int JOY_6 = 6;
+	static final int JOY_7 = 7;
+	static final int JOY_8 = 8;
+	static final int JOY_9 = 9;
+	static final int JOY_10 = 10;
+	static final int JOY_11 = 11;
+	static final int JOY_12 = 12;
+	
 	static final int SLIDER = 3;
 	
 	//Map for buttons on gamepad
@@ -31,10 +41,13 @@ public class RobotMap {
 	static final int BACK_RIGHT_WHEEL = 5;
 	
 	static final int LAUNCH_WHEEL = 0;
-	static final int WHEEL_ROLLERS = 1;
-	static final int STICK_ROLLER = 0;
+	static final int WHEEL_ROLLERS_LEFT = 0;
+	static final int WHEEL_ROLLERS_RIGHT = 2;
+	static final int STICK_ROLLER = 1;
 	
 	//Sensors
-	static final int ULTRASONIC_PING = PLACEHOLDER + 1;
-	static final int ULTRASONIC_ECHO = PLACEHOLDER + 2;
+	static final int ULTRASONIC_PING = 0;
+	static final int ULTRASONIC_ECHO = 1;
+	static final int ENCODER_A = PLACEHOLDER + 3;
+	static final int ENCODER_B = PLACEHOLDER + 4;
 }
